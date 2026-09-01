@@ -1,6 +1,7 @@
 *.pt 
 *.engine 
-*.onnx 
+*.onnx
+*.onnx.data
 *.trt
 *.jpg
 *.jpeg 
