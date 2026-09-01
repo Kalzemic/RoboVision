@@ -12,3 +12,35 @@ hagrid_data/
 __pycache__
 notebook/
 kagglehub
+
+
+
+#stm 
+build
+mx.scratch
+
+# Build artifacts
+Debug/
+Release/
+build/
+*.o
+*.d
+*.su
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+
+# IDE state
+.metadata/
+.settings/
+.cproject
+.project
+*.launch
+
+# CubeMX generation logs
+*.log
+
+Drivers/
+Middlewares/
