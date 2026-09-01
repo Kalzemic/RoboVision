@@ -1,0 +1,13 @@
+*.pt 
+*.engine 
+*.onnx 
+*.trt
+*.jpg
+*.jpeg 
+*.png
+*.json
+oxford_data/ 
+hagrid_data/
+__pycache__
+notebook/
+kagglehub
