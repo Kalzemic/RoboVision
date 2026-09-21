@@ -81,6 +81,69 @@ Inference:
 
 **Not tracked**: `.onnx` files, `.trt` engine, `.pt` weights. All are build artifacts or too large / device-specific to belong in git.
 
+## Stage 2.5: ROS 2 implementation (`ros/`)
+
+The repository also includes a ROS 2 implementation of the RoboVision runtime pipeline under `ros/`.
+
+This version decomposes the original monolithic Jetson application into ROS 2 nodes and composable components, while preserving the same model preprocessing and inference behavior.
+
+Current pipeline:
+
+```text
+Camera feed
+   ↓ sensor_msgs/Image
+Encoder
+   ↓ TensorList
+TensorRTNode
+   ↓ TensorList
+ObjectSelector
+   ↓ main object detection
+```
+
+The workspace contains:
+
+- `cam_feed/`: Python `rclpy` camera node. Captures frames through OpenCV and publishes them as `sensor_msgs/Image`.
+- `robovision_bringup/`: C++/ROS 2 bringup package containing the inference graph, TensorRT engine integration, preprocessing component, and post-processing component.
+- `robovision_bringup/src/Encoder.cpp`: composable `rclcpp` node that reproduces the original preprocessing pipeline:
+
+  - resize to `320 × 320`
+  - BGR → RGB
+  - convert to `float32`
+  - normalize to `[0, 1]`
+  - convert HWC → NCHW
+  - publish `[1, 3, 320, 320]` as an Isaac ROS `TensorList`
+
+- `isaac_ros_tensor_rt::TensorRTNode`: NVIDIA Isaac ROS TensorRT component used to execute `RoboVision.trt`.
+- `robovision_bringup/src/ObjectSelector.cpp`: composable post-processing node that reads the TensorRT NMS outputs and selects the highest-confidence detection as the main object.
+
+The ROS 2 graph is launched from:
+
+```bash
+ros2 launch robovision_bringup robovision.launch.py
+```
+
+The major runtime topics are conceptually:
+
+```text
+/robovision/image
+        ↓
+Encoder
+        ↓
+/robovision/input
+        ↓
+TensorRTNode
+        ↓
+/robovision/output
+        ↓
+ObjectSelector
+        ↓
+/robovision/main_object
+```
+
+The ROS implementation is intended to make the perception stack easier to compose with additional robotics subsystems such as control, visualization, state estimation, or other sensors without changing the TensorRT model itself.
+
+The original standalone `jetson/RoboVision_trt.py` path remains useful as a minimal reference implementation, while `ros/` provides the modular ROS 2 version of the same perception pipeline.
+
 ## Stage 3: Firmware (`stm/`)
 
 STM32F446XX target, CMake-based build (no CubeIDE required, though the `.ioc` file is included so the project can be opened in CubeMX for peripheral inspection).
