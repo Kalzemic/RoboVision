@@ -1,6 +1,6 @@
 # bench_trt.py
 import numpy as np, time
-from RoboVisionEngine import RoboVisionEngine
+from jetson.RoboVisionEngine import RoboVisionEngine
 
 engine = RoboVisionEngine('RoboVision.trt')
 x = np.random.rand(1,3,320,320).astype(np.float32)

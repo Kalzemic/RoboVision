@@ -1,0 +1,67 @@
+# ROS 2 / colcon build output
+
+build/
+install/
+log/
+
+# Python
+
+**pycache**/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+
+# Virtual environments
+
+.venv/
+venv/
+env/
+
+# IDE / editor
+
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+
+.DS_Store
+Thumbs.db
+
+# CMake
+
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Runtime / debug
+
+*.log
+core
+core.*
+
+# TensorRT generated/cache artifacts
+
+*.engine
+*.plan
+
+# Optional: ignore TensorRT engine if it is generated locally
+
+# *.trt
+
+# Camera / media captures
+
+*.avi
+*.mp4
+*.mkv
+
+# Temporary files
+
+*.tmp
+*.bak
+*~

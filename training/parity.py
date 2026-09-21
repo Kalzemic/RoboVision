@@ -1,6 +1,6 @@
 # trt_parity.py
 import cv2, numpy as np, onnxruntime as ort
-from RoboVisionEngine import RoboVisionEngine
+from jetson.RoboVisionEngine import RoboVisionEngine
 
 frame = cv2.imread('test.jpg')
 resized = cv2.resize(frame, (320, 320))

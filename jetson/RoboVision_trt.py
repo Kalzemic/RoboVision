@@ -1,6 +1,6 @@
 import cv2 
 import serial, struct  
-from RoboVisionEngine import RoboVisionEngine
+from jetson.RoboVisionEngine import RoboVisionEngine
 import numpy as np
 import time
 SCORE_THRESH = 0.3
