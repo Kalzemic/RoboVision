@@ -10,6 +10,7 @@ def generate_launch_description():
     robovision_trt = ComposableNode(
         package='isaac_ros_tensor_rt',
         plugin='nvidia::isaac_ros::dnn_inference::TensorRTNode',
+        namespace='robovision',
         name='robovision_trt',
         parameters=[{
             'engine_file_path':os.path.join(get_package_share_directory('robovision_bringup'),'models','RoboVision.trt'),
@@ -29,6 +30,7 @@ def generate_launch_description():
     encoder = ComposableNode(
         package='robovision_bringup',
         plugin='robovision::Encoder',
+        namespace='robovision',
          name='encoder',
          remappings=[
             ('image_sub', 'image'),
@@ -39,6 +41,7 @@ def generate_launch_description():
     object_selector = ComposableNode(
         package='robovision_bringup',
         plugin='robovision::ObjectSelector',
+        namespace='robovision',
         name='object_selector',
         remappings=[
             ('tensor_sub','output'),

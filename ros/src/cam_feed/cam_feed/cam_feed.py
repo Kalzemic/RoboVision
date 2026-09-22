@@ -10,7 +10,7 @@ class CamFeed(Node):
     def __init__(self):
         super().__init__('cam_feed')
 
-        self.publisher = self.create_publisher(Image,'image', 10)
+        self.publisher = self.create_publisher(Image,'/robovision/image', 10)
 
         self.bridge = CvBridge()
 
@@ -29,6 +29,9 @@ class CamFeed(Node):
             self.get_logger().error("Frame not processed")
             return
 
+        cv2.imshow("RoboVision Camera Feed", frame)
+        cv2.waitKey(1)
+        
         msg = self.bridge.cv2_to_imgmsg( frame, encoding='bgr8')
 
         self.publisher.publish(msg)

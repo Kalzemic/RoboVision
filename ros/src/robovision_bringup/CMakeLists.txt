@@ -13,6 +13,7 @@ find_package(std_msgs REQUIRED)
 find_package(isaac_ros_tensor_list_interfaces REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(sensor_msgs REQUIRED)
+
 add_library(object_selector_component SHARED
   src/ObjectSelector.cpp
 )

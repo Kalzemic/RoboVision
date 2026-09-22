@@ -75,11 +75,13 @@ private:
         tensor_list.tensors.push_back(std::move(tensor));
 
         this->pub_->publish(tensor_list);
+        // RCLCPP_INFO(get_logger(), "Tensor published");
 
     }
 
     rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr sub_;
     rclcpp::Publisher<TensorList>::SharedPtr pub_;
+
 
 };
 }
