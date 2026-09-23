@@ -11,7 +11,7 @@ class CamFeed(Node):
         super().__init__('cam_feed')
 
         self.publisher = self.create_publisher(Image,'/robovision/image', 10)
-
+        
         self.bridge = CvBridge()
 
         self.cap = cv2.VideoCapture(0)
@@ -21,6 +21,7 @@ class CamFeed(Node):
             raise RuntimeError("Could not open webcam")
 
         self.timer = self.create_timer(0.1, self.timerCallback)
+        self.get_logger().info("Camera Feed Initialized")
 
     def timerCallback(self):
         ok, frame = self.cap.read()
@@ -29,8 +30,8 @@ class CamFeed(Node):
             self.get_logger().error("Frame not processed")
             return
 
-        cv2.imshow("RoboVision Camera Feed", frame)
-        cv2.waitKey(1)
+        # cv2.imshow("RoboVision Camera Feed", frame)
+        # cv2.waitKey(1)
         
         msg = self.bridge.cv2_to_imgmsg( frame, encoding='bgr8')
 

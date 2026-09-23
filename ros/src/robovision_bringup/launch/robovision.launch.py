@@ -45,7 +45,7 @@ def generate_launch_description():
         name='object_selector',
         remappings=[
             ('tensor_sub','output'),
-            ('tensor_pub','input')
+            ('object_pub','object')
         ]
     )
     container = ComposableNodeContainer(

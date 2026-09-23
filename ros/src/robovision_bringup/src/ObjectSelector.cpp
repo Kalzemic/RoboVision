@@ -23,7 +23,7 @@ public:
         this->tensor_sub_ = this->create_subscription<isaac_ros_tensor_list_interfaces::msg::TensorList>(
             "tensor_sub",10, std::bind(&ObjectSelector::tensorCallback, this, std::placeholders::_1));
         
-        this->object_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>("main_object",10);
+        this->object_pub_ = this->create_publisher<std_msgs::msg::Float32MultiArray>("object_pub",10);
 
         RCLCPP_INFO(rclcpp::get_logger("rclcpp"),"Object Selector Initialized");
     }
@@ -106,7 +106,7 @@ private:
         output.data = {x1, y1, x2, y2, score, static_cast<float>(class_id) };
 
         this->object_pub_->publish(output);
-         RCLCPP_DEBUG( get_logger(), "Main object: class=%d score=%.3f box=[%.1f %.1f %.1f %.1f]", class_id, score, x1, y1, x2, y2); 
+        RCLCPP_DEBUG( get_logger(), "Main object: class=%d score=%.3f box=[%.1f %.1f %.1f %.1f]", class_id, score, x1, y1, x2, y2); 
     }
 };
 }

@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
             'cam_feed = cam_feed.cam_feed:main',
+            'cam_display = cam_feed.cam_display:main',
         ],
     },
 )
